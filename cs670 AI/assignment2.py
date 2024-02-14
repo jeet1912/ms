@@ -22,17 +22,26 @@ def state_description(state):
     return state_description 
 
 
+#Function to check if the state is valid
+def is_valid(state):
+
+    validity = True
+    invalid_states = [[False, True, True, False], [False, False, True, True], [False, True, True, True], [True, False, False, True], [True, False, False, False], [True, True, False, False]] 
+    
+    if state in invalid_states:
+        validity = False
+
+    return validity
+
 #Test1
-state1 = [True, True, True, True]
 
-#Test2 
-state2 = [False, False, False, False]
+state1 = [False, False, False, False]
+state2 = [True, True, True, True]
+state3 = [False, True, False, True]
+state4 = [True, False, True, False]
+state5 = [False, True, True, False]
 
-#Test3
-states3 = [True, False, True, False]
+state = [state1, state2, state3, state4, state5]
 
-states = [state1, state2, states3]
-
-for state in states:
-    print(state_description(state))
-    print('------------------------------------')
+for s in state:
+    print(is_valid(s))
