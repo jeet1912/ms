@@ -33,15 +33,23 @@ def is_valid(state):
 
     return validity
 
+#function to get the subsequent state
+def get_possible_moves(state):
+    
+    man, lion, goat, grass = state
+    possible_moves = []
+    
+    """
+    possible_moves.append([not man, lion, goat, grass])
+    possible_moves.append([not man, not lion, goat, grass])
+    possible_moves.append([not man, lion, not goat, grass])
+    possible_moves.append([not man, lion, goat, not grass])
+    """
+    
+    possible_moves = [[not state[j] if (j == 0 or i == j) else state[j] for j in range(4)] for i in range(4)]
+
+    return [move for move in possible_moves if is_valid(move)]
+
 #Test1
-
-state1 = [False, False, False, False]
-state2 = [True, True, True, True]
-state3 = [False, True, False, True]
-state4 = [True, False, True, False]
-state5 = [False, True, True, False]
-
-state = [state1, state2, state3, state4, state5]
-
-for s in state:
-    print(is_valid(s))
+state = [False, False, True, False]
+print(get_possible_moves(state))
