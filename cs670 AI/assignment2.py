@@ -9,7 +9,6 @@ entities = {0: 'Man', 1:'Lion', 2:'Goat', 3:'Grass'}
 #Function to describe the state
 def state_description(state):
     
-    state = list(state)
     starting_side = []
     target_side = []
     
@@ -37,8 +36,8 @@ def is_valid(state):
 #function to get the subsequent state
 def get_possible_moves(state):
     
-    man, lion, goat, grass = state
-    possible_moves = []
+    #man, lion, goat, grass = state
+    #possible_moves = []
     
     """
     possible_moves.append([not man, lion, goat, grass])
@@ -57,17 +56,18 @@ def bfs(start, goal):
     start = list(start)
     goal = list(goal)
     queue = deque([[start]])
-    visited = set()
+    visited = set(tuple(start)) #since we always expand start node.
     while queue:
         path = queue.popleft()
         curr_state = path[-1]
-        visited.add(tuple(curr_state))               
+        print('Visited states in BFS: ', len(visited))
         if curr_state == goal:
             return path
         for next_state in get_possible_moves(curr_state):
             if tuple(next_state) not in visited: 
+                visited.add(tuple(next_state))  
                 queue.append(path + [next_state])
-
+    
 
 def dfs(start,goal,path=[], visited=set()):
     start = list(start)
@@ -79,18 +79,25 @@ def dfs(start,goal,path=[], visited=set()):
     for next_state in get_possible_moves(start):
         if tuple(next_state) not in visited:
             new_path = dfs(next_state, goal, path, visited)
+            print('Visited states in DFS: ', len(visited))
             if new_path:
                 return new_path
 
-start_time = datetime.datetime.now()        
+#start_time = datetime.datetime.now()        
 start_state = (False, False, False, False)
 goal_state = (True, True, True, True)
-#solution = bfs(start_state, goal_state)
-solution = dfs(start_state, goal_state)
-end_time = datetime.datetime.now()
-print("Time taken in milliseconds: ", (end_time - start_time).total_seconds() * 1000)
-if solution:
-    for step in solution:
+solution1 = bfs(start_state, goal_state)
+solution2 = dfs(start_state, goal_state)
+#end_time = datetime.datetime.now()
+#print("Time taken in milliseconds: ", (end_time - start_time).total_seconds() * 1000)
+if solution1:
+    for step in solution1:
+        print(state_description(step))
+else:
+    print("No solution found.")
+
+if solution2:
+    for step in solution2:
         print(state_description(step))
 else:
     print("No solution found.")
