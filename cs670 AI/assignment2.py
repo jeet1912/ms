@@ -69,10 +69,24 @@ def bfs(start, goal):
                 queue.append(path + [next_state])
 
 
+def dfs(start,goal,path=[], visited=set()):
+    start = list(start)
+    goal = list(goal)
+    path = path + [start]
+    visited.add(tuple(start))
+    if start == goal:
+        return path
+    for next_state in get_possible_moves(start):
+        if tuple(next_state) not in visited:
+            new_path = dfs(next_state, goal, path, visited)
+            if new_path:
+                return new_path
+
 start_time = datetime.datetime.now()        
 start_state = (False, False, False, False)
 goal_state = (True, True, True, True)
-solution = bfs(start_state, goal_state)
+#solution = bfs(start_state, goal_state)
+solution = dfs(start_state, goal_state)
 end_time = datetime.datetime.now()
 print("Time taken in milliseconds: ", (end_time - start_time).total_seconds() * 1000)
 if solution:
