@@ -1,3 +1,5 @@
+from collections import deque
+import datetime
 
 #False = starting side and True = target side.
 
@@ -7,6 +9,7 @@ entities = {0: 'Man', 1:'Lion', 2:'Goat', 3:'Grass'}
 #Function to describe the state
 def state_description(state):
     
+    state = list(state)
     starting_side = []
     target_side = []
     
@@ -26,9 +29,7 @@ def state_description(state):
 def is_valid(state):
 
     validity = True
-    invalid_states = [[False, True, True, False], [False, False, True, True], [False, True, True, True], [True, False, False, True], [True, False, False, False], [True, True, False, False]] 
-    
-    if state in invalid_states:
+    if ((state[1] == state[2]) and (state[0] != state[1])) or ((state[2] == state[3]) and (state[0] != state[2])):
         validity = False
 
     return validity
@@ -50,6 +51,33 @@ def get_possible_moves(state):
 
     return [move for move in possible_moves if is_valid(move)]
 
-#Test1
-state = [False, False, True, False]
-print(get_possible_moves(state))
+
+
+def bfs(start, goal):
+    start = list(start)
+    goal = list(goal)
+    queue = deque([[start]])
+    visited = set()
+    while queue:
+        path = queue.popleft()
+        curr_state = path[-1]
+        visited.add(tuple(curr_state))               
+        if curr_state == goal:
+            return path
+        for next_state in get_possible_moves(curr_state):
+            if tuple(next_state) not in visited: 
+                queue.append(path + [next_state])
+
+
+start_time = datetime.datetime.now()        
+start_state = (False, False, False, False)
+goal_state = (True, True, True, True)
+solution = bfs(start_state, goal_state)
+end_time = datetime.datetime.now()
+print("Time taken in milliseconds: ", (end_time - start_time).total_seconds() * 1000)
+if solution:
+    for step in solution:
+        print(state_description(step))
+else:
+    print("No solution found.")
+
