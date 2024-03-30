@@ -1,0 +1,15 @@
+-- 1. Find the SIDs of suppliers who supply a red part and a green part.
+-- 2. Find the SIDs of suppliers who supply a red part or a green part.
+-- 3. Find the SNAMEs of suppliers who supply every red part and every green part.
+-- 4. Find the SNAMEs of suppliers who do not supply every red part.
+-- 5. For every supplier that only supplies red parts, print the SID and the name of the supplier and the average cost of parts that she supplies.
+-- 6. For each part, find the SNAMEs of the suppliers who do not charge the most for that part. The answer of this query should have two columns: PID and SNAME.
+-- 7. For every part supplied by a supplier who is at the city of Newark, print the PID and the SID and the name of the suppliers who sell it at the highest price.
+-- 8. For every part which has at least two suppliers, find its PID, its PNAME and the total number of suppliers who sell it.
+-- 9. Find the PIDs of parts supplied by every supplier who is at the city of Newark or by every supplier who is at the city of Trenton.
+-- 10. Find the PIDs of parts supplied by every supplier who is at the city of Newark and by every supplier who is at the city of Trenton.
+-- 11. Find the SIDs of suppliers who supply a red part but do not supply a blue part.
+-- 12. For every supplier who supplies at least 4 parts, find his SID, SNAME and the PID of the most expensive part(s) that he supplies.
+-- 13. For every distinct color of the parts, find the total number of suppliers who supply a part of this color.
+-- 14. Find the SIDs of suppliers who supply at least two parts of different color.
+-- 15. For every part which has a supplier, find its PID, PNAME, its average cost, maximum cost, and minimum cost.
